@@ -1,0 +1,254 @@
+/*
+Placeholder for custom user CSS
+
+mainly to be overridden in profile/static/custom/custom.css
+
+This will always be an empty file in IPython
+*/
+@media print {
+  #notebook_name {
+    display: block;
+    font-size: 30px
+  }
+
+  #site {
+    overflow: visible;
+  }
+
+  .output_stream {
+    display: none;
+  }
+  .output_collapsed {
+    display: none;
+  }
+
+  div.output_prompt {
+    visibility: hidden;
+  }
+
+  div.input_prompt {
+    visibility: hidden;
+  }
+
+  div.input_area {
+    border: 1px white solid;
+  }
+  .CodeMirror {
+    background: #FFF;
+  }
+
+  .print:last-child {
+    page-break-after: auto;
+  }
+}
+
+/*fix #https://github.com/andypetrella/spark-notebook/issues/363 */
+/*http://stackoverflow.com/questions/17206631/why-are-bootstrap-tabs-displaying-tab-pane-divs-with-incorrect-widths-when-using/23267110#23267110*/
+/* bootstrap hack: fix content width inside hidden tabs */
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+    display: block;     /* undo display:none          */
+    height: 0;          /* height:0 is also invisible */
+    overflow-y: hidden; /* no-overflow                */
+}
+.tab-content > .active,
+.pill-content > .active {
+    height: auto;       /* let the content decide it  */
+} /* bootstrap hack end */
+
+/* nicer tables (was horrible black) */
+.rendered_html tr, .rendered_html th, .rendered_html td {
+  border: 1px solid #aaa;
+}
+
+.cell.failed {
+  background-color: #ee5f5b;
+}
+
+/* generic (all charts) */
+span.chart-sampling-warning p, span.chart-total-item-count p { display: inline !important; }
+span.chart-sampling-warning p { color:red !important; }
+
+/* pivot chart */
+.pivot-controls-hidden .pvtVals, .pivot-controls-hidden .pvtRenderer, .pivot-controls-hidden .pvtAxisContainer {
+  visibility: hidden;
+  display: none;
+}
+table.pivot-controls-hidden, .pivot-controls-hidden > tbody > tr, .pivot-controls-hidden > tbody > tr > td {
+  border: none ! important;
+}
+.pvtUi td.pvtAxisContainer.pvtRows, td.pvtAxisContainer.pvtUnused.pvtVertList {
+  /* align both selected and unselected dimensions on the top,
+  so it's easier to control them when there are many rows or many columns in a table */
+  vertical-align: top;
+}
+/* auto-resize currently do not take account of the pivot controls.
+   to look less horrible, used white background */
+td.pvtRendererArea {
+  background-color: #ffffff;
+}
+
+/* default styles from bokeh messes up c3-tooltip (pivotchart etc) */
+table.c3-tooltip {
+  background-color: #ffffff;
+}
+table.c3-tooltip th, #termDefinitions table th {
+  color: #ffffff;
+}
+/* fix the black rect fill appearing in C3 Line charts (looks like a clash with something) */
+.pvtUi path.c3-shape.c3-line, .custom-c3-chart path.c3-shape.c3-line {
+  fill: transparent;
+}
+
+/* Notebook cells display */
+#notebook {
+  padding-top: 0px;
+}
+
+/* Menu bar */
+#menubar-container { z-index: 1000; background-color: #fff; border-bottom: 1px solid #ddd; }
+
+/* Sidebar */
+#notebook-panels { right: 0px; }
+
+#sidebar {
+  padding-left: 5px;
+}
+#sidebar div.tab-pane {
+  padding: 5px;
+}
+#sidebar.hidden {
+  visibility: hidden;
+  display: none;
+}
+
+/* make sure tabs fit into sidebar */
+#sidebar ul.nav.nav-tabs {
+  font-size: 0.9em;
+}
+#sidebar .nav > li > a {
+  padding: 5px 7px;
+}
+#sidebar span#errors-count.badge {
+  background-color: #c33;
+}
+
+#termDefinitions table th {
+  background-color: #888;
+}
+
+
+/* cell progress: based on http://getbootstrap.com/components/#progress-animated */
+.cell .progress { margin: 0; height: auto; /* hide when not used */ }
+div.progress-bar { text-align: left; }
+div.progress-bar a.cancel-cell-btn { font-weight: bold; color: #336699 !important; margin-left: 10px; }
+div.progress-bar.active a.cancel-cell-btn { color: #FFFFFF!important; }
+
+#all-jobs-progress-bar { margin-bottom: 0px; }
+h4#spark-jobs { margin-bottom: 0 !important; }
+
+.prompt { display: none; visibility: hidden; }
+/* new cell UI */
+
+/* to allow relative placement of + / - */
+div.cell { position: relative; }
+/* this is needed so edit don't get on top of context-menu buttons */
+div.cell .CodeMirror { z-index: 0; }
+div.cell.unselected div.insert-cell-btn { visibility: hidden; display: none; }
+div.cell div.insert-cell-btn a.btn { padding: 0; color: #999; }
+div.cell.selected div.insert-cell-btn { position: absolute; border: none; z-index: 1000;  }
+div.cell.selected div.insert-cell-btn-before { top: -12px; left: 50%; }
+div.cell.selected div.insert-cell-btn-after { bottom: -12px; left: 50%; }
+
+
+div.cell.code_cell, div.cell.text_cell {
+  border-radius: 3px;
+  padding: 0;
+  margin-bottom: 10px;
+}
+div.cell.code_cell {
+  border: 1px solid #ddd;
+}
+div.cell.selected, div.cell.code_cell.selected, .edit_mode div.cell.selected {
+  border: 1px solid #ddd;
+  /* http://www.css3generator.in/box-shadow.html */
+  box-shadow: 2px 2px 9px 3px #bbb;
+  -webkit-box-shadow: 2px 2px 9px 3px #bbb;
+  -moz-box-shadow: 2px 2px 9px 3px #bbb;
+  -o-box-shadow: 2px 2px 9px 3px #bbb;
+}
+
+.code_cell div.input_area {
+  border-color: #cfcfcf;
+  border-right-width: 0;
+  border-bottom-width: 1px;
+  border-bottom-color: #EEEEEE;
+  border-top-width: 0;
+  border-left: 5px solid #eee;
+  background: transparent;
+}
+/* make defined variables lighter, so it do not disturb from final result */
+div.output_area pre { color: #666; }
+
+/* code cell context-menu */
+.cell-context-buttons {
+  position: absolute; top: 0; right: 0;
+  background-color: #fff; border: 1px solid #eee;
+  border-bottom-left-radius: 5px;
+  /* we've just added this element last, instead so its on top. */
+  /* z-index do not work because of a diffrent stacking context */
+  /* z-index: 9999; */
+}
+.cell-context-buttons > .btn-group > .btn > .glyphicon { color: #aaa; }
+.cell-context-buttons .btn { padding: 0px 3px; }
+
+.cell-context-buttons .dropdown-submenu .dropdown-menu {
+  /* allow submenu to be smaller, so it fits even when cell width is 25% */
+  min-width: 60px;
+}
+
+div.text_cell .cell-context-buttons { float: right; }
+div.text_cell.unselected .cell-context-buttons {
+  display: none !important; visibility: hidden !important;
+}
+div.text_cell {
+  display: block !important;
+
+  /* unset the flex layout, so buttons would render normaly */
+  -moz-box-orient: unset; -moz-box-align: unset; flex-direction: unset; align-items: unset; box-orient: unset; box-align: unset;
+}
+
+/* hide cell options in read-only view */
+body[data-read-only="true"]  div.cell .cell-context-buttons {
+    display: none !important; visibility: hidden !important;
+}
+
+
+/* codemirror syntax highlighting tweaks */
+.cm-sql-inside-scala-mode {
+  background-color: #fffdea;
+}
+
+/* hide the useless main toolbar (with icons/buttons). brute-force for now. */
+#maintoolbar {display: none !important; visibility: hidden !important; }
+
+body[data-read-only="true"] .cell .progress, body[data-read-only="true"] #maintoolbar, body[data-read-only="true"] #menubar-container {
+  display: none !important; visibility: hidden!important;
+}
+
+
+/* notebook list */
+.item_buttons_inline { display: inline; margin-left: 20px; }
+.item_buttons_inline .btn { border: none; margin-left: 10px; border-radius: 7px; font-size: 0.75em; /* background-color: transparent; border: 1px solid #f0f0f0; */ }
+
+
+.notebook_app {
+  background-color: #fcfcfc;
+}
+
+.list_container > div.list_item.row { border: none!important; }
+.list_item.row:nth-child(even) {background: #FAFAFA}
+.list_item.row:nth-child(odd) {background: #FFFFFF}
+
+
+.sbt-project-action { margin-left: 10px; }
